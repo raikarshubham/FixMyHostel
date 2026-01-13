@@ -1,0 +1,77 @@
+.timeline-page {
+  min-height: 100vh;
+  background-color: #050b2c;
+  padding: 40px;
+  color: #ffffff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.timeline-page h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+/* Timeline container */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  margin-left: 20px;
+}
+
+/* Timeline item */
+.timeline-item {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+/* Vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #1f2a70;
+}
+
+/* Dot */
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #1f2a70;
+  margin-top: 6px;
+  z-index: 1;
+}
+
+.timeline-dot.completed {
+  background-color: #fbbf24;
+}
+
+/* Content */
+.timeline-content {
+  background-color: #0b1245;
+  padding: 16px 20px;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.timeline-content h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.timeline-time {
+  font-size: 13px;
+  color: #fbbf24;
+}
+
+.timeline-by {
+  font-size: 12px;
+  color: #c7c9d3;
+  margin-top: 4px;
+}

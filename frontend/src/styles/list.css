@@ -1,0 +1,73 @@
+.list-page {
+  min-height: 100vh;
+  background-color: #050b2c;
+  padding: 40px;
+  color: #ffffff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.list-page h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.complaint-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.complaint-card {
+  background-color: #0b1245;
+  border: 1px solid #1f2a70;
+  border-radius: 14px;
+  padding: 20px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.complaint-card:hover {
+  transform: translateY(-3px);
+  border-color: #fbbf24;
+}
+
+.complaint-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.complaint-top h3 {
+  font-size: 18px;
+  max-width: 70%;
+}
+
+.status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.pending {
+  background-color: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.status.in-progress {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.status.resolved {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.complaint-meta {
+  margin-top: 14px;
+  display: flex;
+  gap: 30px;
+  font-size: 13px;
+  color: #c7c9d3;
+}
