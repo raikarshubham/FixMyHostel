@@ -77,7 +77,7 @@ React Router DOM
 
 Context API (Authentication & roles)
 
-Plain CSS (custom dark theme UI)
+CSS (custom dark theme UI)
 
 Backend (Planned)
 
@@ -185,20 +185,3 @@ Computer Science Engineering Student
 
 📌 GitHub: https://github.com/raikarshubham
 
-📄 License
-
-This project is created for educational and academic purposes.
-
-✅ Next Recommended Steps
-
-If you want, we can now:
-
-Add screenshots to README
-
-Start backend (Node + Express + MongoDB)
-
-Prepare viva / interview explanation notes
-
-Add Admin complaint assignment UI
-
-Just tell me what you want next 💪
