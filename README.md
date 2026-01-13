@@ -102,8 +102,10 @@ Minimal, professional, and thesis-ready design
 Consistent layout across all roles
 
 📂 Project Structure
+
 FixMyHostel/
 │
+
 ├── frontend/
 
 │   ├── src/
