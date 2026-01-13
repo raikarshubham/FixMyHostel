@@ -105,6 +105,7 @@ Consistent layout across all roles
 FixMyHostel/
 │
 ├── frontend/
+
 │   ├── src/
 │   │   ├── components/      # Navbar, ProtectedRoute
 │   │   ├── context/         # AuthContext
