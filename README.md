@@ -101,32 +101,6 @@ Minimal, professional, and thesis-ready design
 
 Consistent layout across all roles
 
-📂 Project Structure
-
-FixMyHostel/
-│
-
-├── frontend/
-
-│   ├── src/
-│   │   ├── components/      # Navbar, ProtectedRoute
-│   │   ├── context/         # AuthContext
-│   │   ├── pages/
-│   │   │   ├── auth/        # Login
-│   │   │   ├── student/     # Student dashboards & pages
-│   │   │   ├── admin/       # Admin dashboard
-│   │   │   └── staff/       # Staff dashboard
-│   │   ├── styles/          # CSS files (dashboard, forms, lists)
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   │
-│   └── package.json
-│
-├── backend/                 # (to be implemented)
-│
-├── .gitignore
-└── README.md
-
 🔐 Authentication & Authorization
 
 Role-based access control:
