@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import "../../styles/dashboard.css";
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Navbar title="Admin Dashboard" />
@@ -13,19 +16,9 @@ const AdminDashboard = () => {
         </header>
 
         <div className="dashboard-grid">
-          <div className="dashboard-card">
-            <h3>All Complaints</h3>
-            <p>View and manage all complaints</p>
-          </div>
-
-          <div className="dashboard-card">
-            <h3>Assign Complaints</h3>
-            <p>Assign issues to maintenance staff</p>
-          </div>
-
-          <div className="dashboard-card">
-            <h3>Analytics</h3>
-            <p>View complaint statistics</p>
+          <div className="dashboard-card" onClick={() => navigate("/admin/complaints")}>
+           <h3>All Complaints</h3>
+            <p>View, analyze & assign complaints</p>
           </div>
 
           <div className="dashboard-card">

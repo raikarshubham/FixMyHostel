@@ -75,3 +75,21 @@
   color: #c7c9d3;
   margin-top: 4px;
 }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  background-color: #0b1245;
+  padding: 30px;
+  border-radius: 18px;
+  width: 500px;
+  color: white;
+}

@@ -11,6 +11,8 @@ import MyComplaints from "./pages/student/MyComplaints";
 import ComplaintStatus from "./pages/student/ComplaintStatus";
 import Feedback from "./pages/student/Feedback";
 import ComplaintDetail from "./pages/student/ComplaintDetail";
+import AssignComplaint from "./pages/admin/AssignComplaint";
+import AllComplaints from "./pages/admin/AllComplaints";
 
 
 
@@ -48,13 +50,13 @@ const App = () => {
           }
         />
         <Route
-  path="/student/raise-complaint"
-  element={
-    <ProtectedRoute role="student">
-      <RaiseComplaint />
-    </ProtectedRoute>
-  }
-/>
+          path="/student/raise-complaint"
+          element={
+            <ProtectedRoute role="student">
+              <RaiseComplaint />
+             </ProtectedRoute>
+           }
+        />
 
 <Route
   path="/student/my-complaints"
@@ -88,6 +90,23 @@ const App = () => {
   element={
     <ProtectedRoute role="student">
       <ComplaintDetail />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/assign/:id"
+  element={
+    <ProtectedRoute role="admin">
+      <AssignComplaint />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/admin/complaints"
+  element={
+    <ProtectedRoute role="admin">
+      <AllComplaints />
     </ProtectedRoute>
   }
 />
