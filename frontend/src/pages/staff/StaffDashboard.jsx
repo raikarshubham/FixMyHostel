@@ -1,38 +1,32 @@
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import "../../styles/dashboard.css";
 
 const StaffDashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <Navbar title="Maintenance Dashboard" />
+      <Navbar title="Staff Dashboard" />
 
       <div className="dashboard-page">
         <header className="dashboard-header">
-          <h1>Maintenance Dashboard</h1>
-          <p>Resolve assigned hostel complaints</p>
+          <h1>Maintenance Staff Dashboard</h1>
+          <p>View and update assigned complaints</p>
         </header>
 
         <div className="dashboard-grid">
-          <div className="dashboard-card">
-            <h3>Assigned Complaints</h3>
-            <p>View complaints assigned to you</p>
-          </div>
+         <div className="dashboard-card"onClick={() => navigate("/staff/update/101")}>
+          <h3>Assigned Complaints</h3>
+           <p>Update complaint status and resolution</p>
+         </div>
 
-          <div className="dashboard-card">
-            <h3>Update Status</h3>
-            <p>Mark complaints as in-progress or resolved</p>
-          </div>
-
-          <div className="dashboard-card">
-            <h3>Upload Proof</h3>
-            <p>Add images after fixing issues</p>
-          </div>
-
-          <div className="dashboard-card">
-            <h3>Resolution History</h3>
-            <p>View previously resolved complaints</p>
-          </div>
+         <div className="dashboard-card" onClick={() => navigate("/staff/resolved")}>
+          <h3>Resolved Complaints</h3>
+           <p>View resolution history</p>
+         </div>
         </div>
+
       </div>
     </>
   );

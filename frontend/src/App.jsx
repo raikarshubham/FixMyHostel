@@ -14,7 +14,8 @@ import ComplaintDetail from "./pages/student/ComplaintDetail";
 import AssignComplaint from "./pages/admin/AssignComplaint";
 import AllComplaints from "./pages/admin/AllComplaints";
 import StaffPerformance from "./pages/admin/StaffPerformance";
-
+import UpdateComplaint from "./pages/staff/UpdateComplaint";
+import ResolvedComplaints from "./pages/staff/ResolvedComplaints";
 
 
 const App = () => {
@@ -121,6 +122,23 @@ const App = () => {
   }
 />
 
+<Route
+  path="/staff/update/:id"
+  element={
+    <ProtectedRoute role="staff">
+      <UpdateComplaint />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/staff/resolved"
+  element={
+    <ProtectedRoute role="staff">
+      <ResolvedComplaints />
+    </ProtectedRoute>
+  }
+/>
 
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
