@@ -81,3 +81,7 @@ th {
 .status.resolved {
   color: #22c55e;
 }
+.stat-sub {
+  font-size: 12px;
+  color: #c7c9d3;
+}

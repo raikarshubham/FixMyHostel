@@ -20,11 +20,12 @@ const AdminDashboard = () => {
            <h3>All Complaints</h3>
             <p>View, analyze & assign complaints</p>
           </div>
+        
+        <div className="dashboard-card" onClick={() => navigate("/admin/staff-performance")}>
+         <h3>Staff Performance</h3>
+          <p>View ratings & feedback</p>
+        </div>
 
-          <div className="dashboard-card">
-            <h3>Staff Performance</h3>
-            <p>Track maintenance efficiency</p>
-          </div>
         </div>
       </div>
     </>

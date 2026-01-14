@@ -13,6 +13,7 @@ import Feedback from "./pages/student/Feedback";
 import ComplaintDetail from "./pages/student/ComplaintDetail";
 import AssignComplaint from "./pages/admin/AssignComplaint";
 import AllComplaints from "./pages/admin/AllComplaints";
+import StaffPerformance from "./pages/admin/StaffPerformance";
 
 
 
@@ -107,6 +108,15 @@ const App = () => {
   element={
     <ProtectedRoute role="admin">
       <AllComplaints />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/admin/staff-performance"
+  element={
+    <ProtectedRoute role="admin">
+      <StaffPerformance />
     </ProtectedRoute>
   }
 />
