@@ -5,17 +5,23 @@ const {
   createComplaint,
   getMyComplaints,
   getAllComplaints,
+  getComplaintById,
   assignComplaint,
+  updateComplaintStatus,
 } = require("../controllers/complaintController");
 
 const { protect, authorize } = require("../middleware/authMiddleware");
 
-// 🧑‍🎓 Student routes
+/* Student */
 router.post("/", protect, authorize("student"), createComplaint);
 router.get("/my", protect, authorize("student"), getMyComplaints);
+router.get("/:id", protect, authorize("student", "staff", "admin"), getComplaintById);
 
-// 🧑‍💼 Admin routes
+/* Admin */
 router.get("/", protect, authorize("admin"), getAllComplaints);
 router.put("/:id/assign", protect, authorize("admin"), assignComplaint);
+
+/* Staff + Admin */
+router.put("/:id/status", protect, authorize("staff", "admin"), updateComplaintStatus);
 
 module.exports = router;

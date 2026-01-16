@@ -1,85 +1,107 @@
 const Complaint = require("../models/Complaint");
+const User = require("../models/User");
 
-// 📝 Student raises a complaint
+/* Student: Create Complaint */
 exports.createComplaint = async (req, res) => {
-  try {
-    const {
-      hostel,
-      block,
-      roomNumber,
-      title,
-      description,
-      category,
-      priority,
-    } = req.body;
+  const { title, description, category, priority } = req.body;
 
-    const complaint = await Complaint.create({
-      student: req.user._id,
-      hostel,
-      block,
-      roomNumber,
-      title,
-      description,
-      category,
-      priority,
-    });
+  const complaint = await Complaint.create({
+    title,
+    description,
+    category,
+    priority,
+    student: req.user.id,
+    status: "Pending",
+    timeline: [
+      {
+        status: "Pending",
+        updatedBy: req.user.id,
+        role: "student",
+        note: "Complaint raised",
+      },
+    ],
+  });
 
-    res.status(201).json({
-      message: "Complaint raised successfully",
-      complaint,
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  res.status(201).json({ success: true, complaint });
 };
 
-// 📋 Student: view own complaints
+/* Student: View My Complaints */
 exports.getMyComplaints = async (req, res) => {
-  try {
-    const complaints = await Complaint.find({
-      student: req.user._id,
-    }).sort({ createdAt: -1 });
+  const complaints = await Complaint.find({ student: req.user.id })
+    .sort({ createdAt: -1 });
 
-    res.json(complaints);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  res.json({ success: true, complaints });
 };
 
-// 📋 Admin: view all complaints + populate user info
+/* Student / Staff / Admin: View Single Complaint */
+exports.getComplaintById = async (req, res) => {
+  const complaint = await Complaint.findById(req.params.id);
+
+  if (!complaint) {
+    return res.status(404).json({ message: "Complaint not found" });
+  }
+
+  if (
+    req.user.role === "student" &&
+    complaint.student.toString() !== req.user.id
+  ) {
+    return res.status(403).json({ message: "Not authorized" });
+  }
+
+  res.json({ success: true, complaint });
+};
+
+/* Admin: View All Complaints */
 exports.getAllComplaints = async (req, res) => {
-  try {
-    const complaints = await Complaint.find()
-      .populate("student", "name email")
-      .populate("assignedTo", "name email")
-      .sort({ createdAt: -1 });
+  const complaints = await Complaint.find()
+    .populate("student", "name email")
+    .populate("assignedStaff", "name email");
 
-    res.json(complaints);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  res.json({ success: true, complaints });
 };
 
-// 🧑‍💼 Admin assigns complaint to staff
+/* Admin: Assign Complaint */
 exports.assignComplaint = async (req, res) => {
-  try {
-    const { staffId } = req.body;
+  const { staffId } = req.body;
 
-    const complaint = await Complaint.findById(req.params.id);
-    if (!complaint) {
-      return res.status(404).json({ message: "Complaint not found" });
-    }
+  const complaint = await Complaint.findById(req.params.id);
+  if (!complaint) return res.status(404).json({ message: "Complaint not found" });
 
-    complaint.assignedTo = staffId;
-    complaint.status = "Assigned";
-    await complaint.save();
+  complaint.assignedStaff = staffId;
+  complaint.status = "Assigned";
+  complaint.timeline.push({
+    status: "Assigned",
+    updatedBy: req.user.id,
+    role: "admin",
+    note: "Assigned to staff",
+  });
 
-    res.json({
-      message: "Complaint assigned successfully",
-      complaint,
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  await complaint.save();
+  res.json({ success: true, complaint });
 };
 
+/* Staff/Admin: Update Status */
+exports.updateComplaintStatus = async (req, res) => {
+  const { status, note } = req.body;
+
+  const complaint = await Complaint.findById(req.params.id);
+  if (!complaint) return res.status(404).json({ message: "Complaint not found" });
+
+  if (
+    req.user.role === "staff" &&
+    complaint.assignedStaff?.toString() !== req.user.id
+  ) {
+    return res.status(403).json({ message: "Not authorized" });
+  }
+
+  complaint.status = status;
+  complaint.timeline.push({
+    status,
+    updatedBy: req.user.id,
+    role: req.user.role,
+    note,
+  });
+
+  await complaint.save();
+  res.json({ success: true, complaint });
+};

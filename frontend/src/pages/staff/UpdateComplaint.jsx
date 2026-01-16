@@ -1,59 +1,50 @@
-import Navbar from "../../components/Navbar";
-import "../../styles/form.css";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "../../api/axios";
 
 const UpdateComplaint = () => {
-  // Mock assigned complaint
-  const complaint = {
-    id: 101,
-    title: "Water leakage in bathroom",
-    hostel: "Boys Hostel A",
-    category: "Water",
-    priority: "High",
-    description:
-      "Continuous water leakage from bathroom pipe causing water accumulation.",
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [complaint, setComplaint] = useState(null);
+  const [status, setStatus] = useState("In Progress");
+  const [note, setNote] = useState("");
+
+  useEffect(() => {
+    api.get(`/complaints/${id}`)
+      .then((res) => setComplaint(res.data.complaint))
+      .catch(console.error);
+  }, [id]);
+
+  const updateStatus = async () => {
+    await api.put(`/complaints/${id}/status`, {
+      status,
+      note,
+    });
+
+    navigate("/staff/dashboard");
   };
 
+  if (!complaint) return <p>Loading...</p>;
+
   return (
-    <>
-      <Navbar title="Update Complaint" />
+    <div style={{ padding: 40 }}>
+      <h2>{complaint.title}</h2>
+      <p>{complaint.description}</p>
 
-      <div className="form-page">
-        <div className="form-card">
-          <h2>{complaint.title}</h2>
-          <p>
-            {complaint.hostel} | {complaint.category} | {complaint.priority}
-          </p>
+      <select value={status} onChange={(e) => setStatus(e.target.value)}>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+      </select>
 
-          <div className="detail-section">
-            <p>{complaint.description}</p>
-          </div>
+      <textarea
+        placeholder="Add work note"
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+      />
 
-          <form className="complaint-form">
-            <div className="form-group">
-              <label>Update Status</label>
-              <select>
-                <option>In Progress</option>
-                <option>Resolved</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Resolution Notes</label>
-              <textarea placeholder="Describe the work done..." />
-            </div>
-
-            <div className="form-group">
-              <label>Upload After-Repair Image (optional)</label>
-              <input type="file" />
-            </div>
-
-            <button type="submit" className="submit-btn">
-              Update Complaint
-            </button>
-          </form>
-        </div>
-      </div>
-    </>
+      <button onClick={updateStatus}>Update Status</button>
+    </div>
   );
 };
 

@@ -1,32 +1,41 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+/* Auth */
 import Login from "./pages/auth/Login";
+
+/* Dashboards */
 import StudentDashboard from "./pages/student/StudentDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import StaffDashboard from "./pages/staff/StaffDashboard";
 
+/* Student Pages */
 import RaiseComplaint from "./pages/student/RaiseComplaint";
 import MyComplaints from "./pages/student/MyComplaints";
 import ComplaintStatus from "./pages/student/ComplaintStatus";
-import Feedback from "./pages/student/Feedback";
 import ComplaintDetail from "./pages/student/ComplaintDetail";
+import Feedback from "./pages/student/Feedback";
+
+/* Admin Pages */
 import AssignComplaint from "./pages/admin/AssignComplaint";
 import AllComplaints from "./pages/admin/AllComplaints";
 import StaffPerformance from "./pages/admin/StaffPerformance";
+
+/* Staff Pages */
 import UpdateComplaint from "./pages/staff/UpdateComplaint";
 import ResolvedComplaints from "./pages/staff/ResolvedComplaints";
-
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Default */}
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
 
+        {/* Student Routes */}
         <Route
-          path="/student"
+          path="/student/dashboard"
           element={
             <ProtectedRoute role="student">
               <StudentDashboard />
@@ -35,7 +44,53 @@ const App = () => {
         />
 
         <Route
-          path="/admin"
+          path="/student/raise-complaint"
+          element={
+            <ProtectedRoute role="student">
+              <RaiseComplaint />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/student/complaints"
+          element={
+            <ProtectedRoute role="student">
+              <MyComplaints />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/student/complaints/:id"
+          element={
+            <ProtectedRoute role="student">
+              <ComplaintDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/student/status"
+          element={
+            <ProtectedRoute role="student">
+              <ComplaintStatus />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/student/feedback"
+          element={
+            <ProtectedRoute role="student">
+              <Feedback />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Admin Routes */}
+        <Route
+          path="/admin/dashboard"
           element={
             <ProtectedRoute role="admin">
               <AdminDashboard />
@@ -44,102 +99,61 @@ const App = () => {
         />
 
         <Route
-          path="/staff"
+          path="/admin/complaints"
+          element={
+            <ProtectedRoute role="admin">
+              <AllComplaints />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/assign/:id"
+          element={
+            <ProtectedRoute role="admin">
+              <AssignComplaint />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/staff-performance"
+          element={
+            <ProtectedRoute role="admin">
+              <StaffPerformance />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Staff Routes */}
+        <Route
+          path="/staff/dashboard"
           element={
             <ProtectedRoute role="staff">
               <StaffDashboard />
             </ProtectedRoute>
           }
         />
+
         <Route
-          path="/student/raise-complaint"
+          path="/staff/update/:id"
           element={
-            <ProtectedRoute role="student">
-              <RaiseComplaint />
-             </ProtectedRoute>
-           }
+            <ProtectedRoute role="staff">
+              <UpdateComplaint />
+            </ProtectedRoute>
+          }
         />
 
-<Route
-  path="/student/my-complaints"
-  element={
-    <ProtectedRoute role="student">
-      <MyComplaints />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/staff/resolved"
+          element={
+            <ProtectedRoute role="staff">
+              <ResolvedComplaints />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/student/status"
-  element={
-    <ProtectedRoute role="student">
-      <ComplaintStatus />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/student/feedback"
-  element={
-    <ProtectedRoute role="student">
-      <Feedback />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/student/complaint/:id"
-  element={
-    <ProtectedRoute role="student">
-      <ComplaintDetail />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/admin/assign/:id"
-  element={
-    <ProtectedRoute role="admin">
-      <AssignComplaint />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/admin/complaints"
-  element={
-    <ProtectedRoute role="admin">
-      <AllComplaints />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/admin/staff-performance"
-  element={
-    <ProtectedRoute role="admin">
-      <StaffPerformance />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/staff/update/:id"
-  element={
-    <ProtectedRoute role="staff">
-      <UpdateComplaint />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/staff/resolved"
-  element={
-    <ProtectedRoute role="staff">
-      <ResolvedComplaints />
-    </ProtectedRoute>
-  }
-/>
-
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>

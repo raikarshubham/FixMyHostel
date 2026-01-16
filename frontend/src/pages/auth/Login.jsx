@@ -1,57 +1,94 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import "../../styles/auth.css";
+import "../../styles/form.css";
+import "../../styles/page.css"
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("student");
-
-  const { login } = useContext(AuthContext);
+  
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Mock login
-    const mockUser = {
-      id: "1",
-      name: "Test User",
-      email,
-      role,
-    };
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    login({ user: mockUser });
-    navigate(`/${role}`);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        formData
+      );
+
+      // 🔐 STORE TOKEN + USER (CRITICAL)
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      console.log("ROLE:", res.data.user.role);
+      // 🚦 ROLE-BASED REDIRECT
+      const role = res.data.user.role;
+
+      if (role === "student") {
+        navigate("/student/dashboard");
+      } else if (role === "staff") {
+        navigate("/staff/dashboard");
+      } else if (role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message || "Login failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <h1 className="auth-title">FixMyHostel</h1>
-        <p className="auth-subtitle">
-          Hostel Complaint & Maintenance System
-        </p>
+    <div className="form-container">
+      <h2>Login</h2>
 
-        <div className="auth-form">
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="student@hostel.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
-          <label>Login as</label>
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="student">Student</option>
-            <option value="admin">Admin</option>
-            <option value="staff">Maintenance Staff</option>
-          </select>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
 
-          <button onClick={handleLogin} className="auth-btn">
-            Login
-          </button>
-        </div>
-      </div>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
+      </form>
     </div>
   );
 };

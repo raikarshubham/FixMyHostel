@@ -1,78 +1,97 @@
-import Navbar from "../../components/Navbar";
+import { useState } from "react";
+import { createComplaint } from "../../api/complaintApi";
 import "../../styles/form.css";
 
 const RaiseComplaint = () => {
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    priority: "Medium",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    try {
+      await createComplaint(formData);
+      setMessage("✅ Complaint raised successfully");
+
+      setFormData({
+        title: "",
+        description: "",
+        category: "",
+        priority: "Medium",
+      });
+    } catch (error) {
+      setMessage(
+        error.response?.data?.message || "❌ Failed to raise complaint"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <>
-      <Navbar title="Raise Complaint" />
+    <div className="form-container">
+      <h2>Raise a Complaint</h2>
 
-      <div className="form-page">
-        <div className="form-card">
-          <h2>Raise a Complaint</h2>
-          <p>Please provide details about the issue</p>
+      {message && <p>{message}</p>}
 
-          <form className="complaint-form">
-            <div className="form-group">
-              <label>Hostel Name</label>
-              <input type="text" placeholder="Eg. Boys Hostel A" />
-            </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="title"
+          placeholder="Complaint Title"
+          value={formData.title}
+          onChange={handleChange}
+          required
+        />
 
-            <div className="form-row">
-              <div className="form-group">
-                <label>Block</label>
-                <input type="text" placeholder="Eg. Block B" />
-              </div>
+        <textarea
+          name="description"
+          placeholder="Describe your issue"
+          value={formData.description}
+          onChange={handleChange}
+          required
+        />
 
-              <div className="form-group">
-                <label>Room Number</label>
-                <input type="text" placeholder="Eg. 203" />
-              </div>
-            </div>
+        <input
+          type="text"
+          name="category"
+          placeholder="Category (Water, Electricity, etc.)"
+          value={formData.category}
+          onChange={handleChange}
+          required
+        />
 
-            <div className="form-row">
-              <div className="form-group">
-                <label>Category</label>
-                <select>
-                  <option>Water</option>
-                  <option>Electricity</option>
-                  <option>Wi-Fi</option>
-                  <option>Cleanliness</option>
-                  <option>Other</option>
-                </select>
-              </div>
+        <select
+          name="priority"
+          value={formData.priority}
+          onChange={handleChange}
+        >
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
 
-              <div className="form-group">
-                <label>Priority</label>
-                <select>
-                  <option>Low</option>
-                  <option>Medium</option>
-                  <option>High</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label>Complaint Title</label>
-              <input type="text" placeholder="Short issue title" />
-            </div>
-
-            <div className="form-group">
-              <label>Description</label>
-              <textarea placeholder="Describe the issue in detail..." />
-            </div>
-
-            <div className="form-group">
-              <label>Upload Image (optional)</label>
-              <input type="file" />
-            </div>
-
-            <button type="submit" className="submit-btn">
-              Submit Complaint
-            </button>
-          </form>
-        </div>
-      </div>
-    </>
+        <button type="submit" disabled={loading}>
+          {loading ? "Submitting..." : "Submit Complaint"}
+        </button>
+      </form>
+    </div>
   );
 };
 

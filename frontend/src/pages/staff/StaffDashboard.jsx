@@ -1,34 +1,43 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import "../../styles/dashboard.css";
+import api from "../../api/axios";
 
 const StaffDashboard = () => {
+  const [complaints, setComplaints] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    api.get("/complaints")
+      .then((res) => {
+        // backend returns only assigned complaints for staff
+        setComplaints(res.data.complaints || []);
+      })
+      .catch(console.error);
+  }, []);
+
   return (
-    <>
-      <Navbar title="Staff Dashboard" />
+    <div style={{ padding: 40 }}>
+      <h2>Assigned Complaints</h2>
 
-      <div className="dashboard-page">
-        <header className="dashboard-header">
-          <h1>Maintenance Staff Dashboard</h1>
-          <p>View and update assigned complaints</p>
-        </header>
+      {!complaints.length && <p>No complaints assigned.</p>}
 
-        <div className="dashboard-grid">
-         <div className="dashboard-card"onClick={() => navigate("/staff/update/101")}>
-          <h3>Assigned Complaints</h3>
-           <p>Update complaint status and resolution</p>
-         </div>
-
-         <div className="dashboard-card" onClick={() => navigate("/staff/resolved")}>
-          <h3>Resolved Complaints</h3>
-           <p>View resolution history</p>
-         </div>
+      {complaints.map((c) => (
+        <div
+          key={c._id}
+          onClick={() => navigate(`/staff/update/${c._id}`)}
+          style={{
+            border: "1px solid #ccc",
+            padding: 16,
+            marginBottom: 12,
+            cursor: "pointer",
+          }}
+        >
+          <h4>{c.title}</h4>
+          <p>Category: {c.category}</p>
+          <strong>Status: {c.status}</strong>
         </div>
-
-      </div>
-    </>
+      ))}
+    </div>
   );
 };
 
