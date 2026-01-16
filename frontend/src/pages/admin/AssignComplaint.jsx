@@ -1,66 +1,56 @@
-import Navbar from "../../components/Navbar";
-import "../../styles/form.css";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import api from "../../api/axios";
+import { getAllStaff } from "../../api/userApi";
 
 const AssignComplaint = () => {
-  // Mock complaint data
-  const complaint = {
-    id: 1,
-    title: "Water leakage in bathroom",
-    category: "Water",
-    priority: "High",
-    status: "Pending",
-    date: "12 Jan 2026",
-    description:
-      "Continuous water leakage from bathroom pipe causing water accumulation.",
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [complaint, setComplaint] = useState(null);
+  const [staffList, setStaffList] = useState([]);
+  const [staffId, setStaffId] = useState("");
+
+  useEffect(() => {
+    api.get(`/complaints/${id}`)
+      .then((res) => setComplaint(res.data.complaint));
+
+    getAllStaff()
+      .then((res) => setStaffList(res.data.users))
+      .catch(console.error);
+  }, [id]);
+
+  const assign = async () => {
+    if (!staffId) return alert("Select staff");
+
+    await api.put(`/complaints/${id}/assign`, { staffId });
+    navigate("/admin/complaints");
   };
 
-  // Mock maintenance staff list
-  const staffList = [
-    { id: 1, name: "Ramesh Kumar" },
-    { id: 2, name: "Suresh Patil" },
-    { id: 3, name: "Amit Sharma" },
-  ];
+  if (!complaint) return <p>Loading...</p>;
 
   return (
-    <>
-      <Navbar title="Assign Complaint" />
+    <div style={{ padding: 40 }}>
+      <h2>Assign Complaint</h2>
 
-      <div className="form-page">
-        <div className="form-card">
-          <h2>{complaint.title}</h2>
-          <p>
-            {complaint.category} | {complaint.priority} Priority
-          </p>
+      <h4>{complaint.title}</h4>
+      <p>{complaint.description}</p>
 
-          <div className="detail-section">
-            <p>{complaint.description}</p>
-          </div>
+      <select
+        value={staffId}
+        onChange={(e) => setStaffId(e.target.value)}
+      >
+        <option value="">Select Staff</option>
+        {staffList.map((s) => (
+          <option key={s._id} value={s._id}>
+            {s.name} ({s.email})
+          </option>
+        ))}
+      </select>
 
-          <form className="complaint-form">
-            <div className="form-group">
-              <label>Assign to Maintenance Staff</label>
-              <select>
-                <option value="">Select staff member</option>
-                {staffList.map((staff) => (
-                  <option key={staff.id} value={staff.id}>
-                    {staff.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Admin Remarks (optional)</label>
-              <textarea placeholder="Instructions or notes for staff..." />
-            </div>
-
-            <button type="submit" className="submit-btn">
-              Assign Complaint
-            </button>
-          </form>
-        </div>
-      </div>
-    </>
+      <br /><br />
+      <button onClick={assign}>Assign</button>
+    </div>
   );
 };
 

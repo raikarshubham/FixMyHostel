@@ -1,34 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import "../../styles/dashboard.css";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <Navbar title="Admin Dashboard" />
+    <div style={{ padding: 40 }}>
+      <h2>Admin Dashboard</h2>
 
-      <div className="dashboard-page">
-        <header className="dashboard-header">
-          <h1>Admin Dashboard</h1>
-          <p>Manage complaints and maintenance staff</p>
-        </header>
+      <button onClick={() => navigate("/admin/complaints")}>
+        View All Complaints
+      </button>
 
-        <div className="dashboard-grid">
-          <div className="dashboard-card" onClick={() => navigate("/admin/complaints")}>
-           <h3>All Complaints</h3>
-            <p>View, analyze & assign complaints</p>
-          </div>
-        
-        <div className="dashboard-card" onClick={() => navigate("/admin/staff-performance")}>
-         <h3>Staff Performance</h3>
-          <p>View ratings & feedback</p>
-        </div>
-
-        </div>
-      </div>
-    </>
+      <button onClick={() => navigate("/admin/staff-performance")}>
+        Staff Performance
+      </button>
+    </div>
   );
 };
 

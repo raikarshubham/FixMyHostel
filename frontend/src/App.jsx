@@ -3,6 +3,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 /* Auth */
 import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
 /* Dashboards */
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -30,7 +31,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         {/* Default */}
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/register" />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 
         {/* Student Routes */}
