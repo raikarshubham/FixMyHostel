@@ -52,7 +52,7 @@ router.post(
 );
 
 /* ===============================
-   Admin: Get ALL Users (Students + Staff + Admin)
+   Admin: Get ALL Users
 ================================ */
 router.get(
   "/",
@@ -62,10 +62,7 @@ router.get(
     try {
       const users = await User.find().select("_id name email role");
 
-      res.json({
-        success: true,
-        users,
-      });
+      res.json({ success: true, users });
     } catch (error) {
       console.error("FETCH USERS ERROR:", error);
       res.status(500).json({ message: "Failed to fetch users" });
@@ -73,20 +70,22 @@ router.get(
   }
 );
 
-// Admin: Get Only Staff + Admin
+/* ===============================
+   Admin: Get ONLY Staff (🔥 FIXED)
+================================ */
 router.get(
   "/staff",
   protect,
   authorize("admin"),
   async (req, res) => {
     try {
-      const users = await User.find({
-        role: { $in: ["staff", "admin"] },
-      }).select("_id name email role");
+      const staff = await User.find({ role: "staff" }).select(
+        "_id name email role"
+      );
 
       res.json({
         success: true,
-        users,
+        users: staff,
       });
     } catch (error) {
       console.error("FETCH STAFF ERROR:", error);
@@ -96,7 +95,7 @@ router.get(
 );
 
 /* ===============================
-   Admin: Get Only Students (NEW)
+   Admin: Get ONLY Students
 ================================ */
 router.get(
   "/students",
@@ -120,7 +119,7 @@ router.get(
 );
 
 /* ===============================
-   Admin: Delete ANY User (Except Self)
+   Admin: Delete User (Except Self)
 ================================ */
 router.delete(
   "/:id",
@@ -134,11 +133,10 @@ router.delete(
         return res.status(404).json({ message: "User not found" });
       }
 
-      // ❌ Prevent admin from deleting self
       if (user._id.toString() === req.user.id) {
-        return res.status(400).json({
-          message: "You cannot delete your own account",
-        });
+        return res
+          .status(400)
+          .json({ message: "You cannot delete your own account" });
       }
 
       await user.deleteOne();

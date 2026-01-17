@@ -19,12 +19,19 @@ const AssignComplaint = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    // Fetch complaint
     api.get(`/complaints/${id}`)
       .then((res) => setComplaint(res.data.complaint))
       .catch(() => setError("Failed to load complaint"));
 
+    // Fetch ONLY staff (backend enforced + frontend safe)
     api.get("/users/staff")
-      .then((res) => setStaffList(res.data.users))
+      .then((res) => {
+        const onlyStaff = res.data.users.filter(
+          (u) => u.role === "staff"
+        );
+        setStaffList(onlyStaff);
+      })
       .catch(() => setError("Failed to load staff list"));
   }, [id]);
 
