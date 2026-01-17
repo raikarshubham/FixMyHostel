@@ -1,5 +1,4 @@
 import Navbar from "../../components/Navbar";
-import "../../styles/timeline.css";
 
 const ComplaintStatus = () => {
   // Mock timeline data

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../../styles/form.css";
-import "../../styles/page.css"
+import axios from "axios";
+
+import "../../styles/theme.css";
+import "../../styles/auth.css";
 
 const Login = () => {
-  
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -17,10 +17,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -34,61 +31,57 @@ const Login = () => {
         formData
       );
 
-      // 🔐 STORE TOKEN + USER (CRITICAL)
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      const { token, user } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
-      console.log("ROLE:", res.data.user.role);
-      // 🚦 ROLE-BASED REDIRECT
-      const role = res.data.user.role;
+      const role = user.role.toLowerCase();
 
-      if (role === "student") {
-        navigate("/student/dashboard");
-      } else if (role === "staff") {
-        navigate("/staff/dashboard");
-      } else if (role === "admin") {
-        navigate("/admin/dashboard");
-      } else {
-        navigate("/");
-      }
+      if (role === "student") navigate("/student/dashboard");
+      else if (role === "staff") navigate("/staff/dashboard");
+      else if (role === "admin") navigate("/admin/dashboard");
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Login failed. Please try again."
-      );
+      setError(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="form-container">
-      <h2>Login</h2>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Login</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="auth-error">{error}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
-      </form>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+
+        <p className="auth-link" onClick={() => navigate("/register")}>
+          New student? Register
+        </p>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../api/axios";
-import { getAllStaff } from "../../api/userApi";
 
 const AssignComplaint = () => {
   const { id } = useParams();
@@ -10,28 +9,41 @@ const AssignComplaint = () => {
   const [complaint, setComplaint] = useState(null);
   const [staffList, setStaffList] = useState([]);
   const [staffId, setStaffId] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    // Fetch complaint
     api.get(`/complaints/${id}`)
-      .then((res) => setComplaint(res.data.complaint));
+      .then((res) => setComplaint(res.data.complaint))
+      .catch(() => setError("Failed to load complaint"));
 
-    getAllStaff()
+    // Fetch staff list (🔥 FIX)
+    api.get("/users/staff")
       .then((res) => setStaffList(res.data.users))
-      .catch(console.error);
+      .catch(() => setError("Failed to load staff"));
   }, [id]);
 
-  const assign = async () => {
-    if (!staffId) return alert("Select staff");
+  const assignComplaint = async () => {
+    if (!staffId) {
+      setError("Please select a staff member");
+      return;
+    }
 
-    await api.put(`/complaints/${id}/assign`, { staffId });
-    navigate("/admin/complaints");
+    try {
+      await api.put(`/complaints/${id}/assign`, { staffId });
+      navigate("/admin/complaints");
+    } catch {
+      setError("Assignment failed");
+    }
   };
 
   if (!complaint) return <p>Loading...</p>;
 
   return (
-    <div style={{ padding: 40 }}>
+    <div style={{ padding: "40px", maxWidth: "600px", margin: "0 auto" }}>
       <h2>Assign Complaint</h2>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       <h4>{complaint.title}</h4>
       <p>{complaint.description}</p>
@@ -41,15 +53,16 @@ const AssignComplaint = () => {
         onChange={(e) => setStaffId(e.target.value)}
       >
         <option value="">Select Staff</option>
-        {staffList.map((s) => (
-          <option key={s._id} value={s._id}>
-            {s.name} ({s.email})
+        {staffList.map((staff) => (
+          <option key={staff._id} value={staff._id}>
+            {staff.name} ({staff.email})
           </option>
         ))}
       </select>
 
       <br /><br />
-      <button onClick={assign}>Assign</button>
+
+      <button onClick={assignComplaint}>Assign</button>
     </div>
   );
 };

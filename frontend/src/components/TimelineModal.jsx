@@ -1,4 +1,3 @@
-import "../styles/timeline.css";
 
 const TimelineModal = ({ complaint, onClose }) => {
   if (!complaint) return null;

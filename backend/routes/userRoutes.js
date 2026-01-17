@@ -51,4 +51,28 @@ router.post(
   }
 );
 
+/* ===============================
+   Admin: Get All Staff
+================================ */
+router.get(
+  "/staff",
+  protect,
+  authorize("admin"),
+  async (req, res) => {
+    try {
+      const staff = await User.find({ role: "staff" }).select(
+        "_id name email role"
+      );
+
+      res.json({
+        success: true,
+        users: staff,
+      });
+    } catch (error) {
+      console.error("FETCH STAFF ERROR:", error);
+      res.status(500).json({ message: "Failed to fetch staff" });
+    }
+  }
+);
+
 module.exports = router;

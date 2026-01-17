@@ -4,16 +4,26 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ padding: 40 }}>
+    <div style={{ padding: "40px" }}>
       <h2>Admin Dashboard</h2>
 
-      <button onClick={() => navigate("/admin/complaints")}>
-        View All Complaints
-      </button>
+      <div style={{ marginTop: "20px" }}>
+        <button onClick={() => navigate("/admin/complaints")}>
+          View All Complaints
+        </button>
 
-      <button onClick={() => navigate("/admin/staff-performance")}>
-        Staff Performance
-      </button>
+        <br /><br />
+
+        <button onClick={() => navigate("/admin/create-user")}>
+          Create Staff / Admin
+        </button>
+
+        <br /><br />
+
+        <button onClick={() => navigate("/admin/staff-performance")}>
+          Staff Performance
+        </button>
+      </div>
     </div>
   );
 };

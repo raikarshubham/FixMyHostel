@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { createComplaint } from "../../api/complaintApi";
-import "../../styles/form.css";
 
 const RaiseComplaint = () => {
   const [formData, setFormData] = useState({

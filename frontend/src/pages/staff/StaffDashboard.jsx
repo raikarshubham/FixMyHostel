@@ -7,19 +7,23 @@ const StaffDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get("/complaints")
+    api
+      .get("/complaints/assigned")
       .then((res) => {
-        // backend returns only assigned complaints for staff
-        setComplaints(res.data.complaints || []);
+        setComplaints(res.data.complaints);
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error("Failed to load assigned complaints", err);
+      });
   }, []);
 
   return (
-    <div style={{ padding: 40 }}>
+    <div style={{ padding: "40px" }}>
       <h2>Assigned Complaints</h2>
 
-      {!complaints.length && <p>No complaints assigned.</p>}
+      {complaints.length === 0 && (
+        <p>No complaints assigned to you.</p>
+      )}
 
       {complaints.map((c) => (
         <div
@@ -27,8 +31,8 @@ const StaffDashboard = () => {
           onClick={() => navigate(`/staff/update/${c._id}`)}
           style={{
             border: "1px solid #ccc",
-            padding: 16,
-            marginBottom: 12,
+            padding: "15px",
+            marginBottom: "12px",
             cursor: "pointer",
           }}
         >

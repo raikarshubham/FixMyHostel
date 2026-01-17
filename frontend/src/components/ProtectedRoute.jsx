@@ -1,18 +1,32 @@
-import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children, role }) => {
-  const { user } = useContext(AuthContext);
+  const token = localStorage.getItem("token");
+  const userData = localStorage.getItem("user");
 
-  if (!user) {
-    return <Navigate to="/login" />;
+  // ❌ Not logged in
+  if (!token || !userData) {
+    return <Navigate to="/login" replace />;
   }
 
-  if (role && user.role !== role) {
-    return <Navigate to="/login" />;
+  let user;
+  try {
+    user = JSON.parse(userData);
+  } catch (err) {
+    console.error("Invalid user data in storage");
+    return <Navigate to="/login" replace />;
   }
 
+  // 🔒 Normalize role
+  const userRole = user.role?.toLowerCase();
+
+  // ❌ Role mismatch
+  if (role && userRole !== role.toLowerCase()) {
+    console.warn("Role mismatch:", userRole, "required:", role);
+    return <Navigate to="/login" replace />;
+  }
+
+  // ✅ Access granted
   return children;
 };
 

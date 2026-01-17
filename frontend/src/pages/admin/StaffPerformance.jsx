@@ -1,100 +1,59 @@
-import Navbar from "../../components/Navbar";
-import "../../styles/admin.css";
+import { useEffect, useState } from "react";
+import api from "../../api/axios";
 
 const StaffPerformance = () => {
-  // Mock staff performance data
-  const staffStats = [
-    {
-      id: 1,
-      name: "Ramesh Kumar",
-      totalComplaints: 12,
-      avgRating: 4.5,
-    },
-    {
-      id: 2,
-      name: "Suresh Patil",
-      totalComplaints: 9,
-      avgRating: 3.8,
-    },
-    {
-      id: 3,
-      name: "Amit Sharma",
-      totalComplaints: 15,
-      avgRating: 4.2,
-    },
-  ];
+  const [complaints, setComplaints] = useState([]);
 
-  // Mock feedback data
-  const feedbacks = [
-    {
-      id: 1,
-      complaint: "Water leakage issue",
-      staff: "Ramesh Kumar",
-      rating: 5,
-      comment: "Issue resolved quickly and professionally.",
-    },
-    {
-      id: 2,
-      complaint: "Wi-Fi not working",
-      staff: "Suresh Patil",
-      rating: 3,
-      comment: "Took more time than expected.",
-    },
-    {
-      id: 3,
-      complaint: "Room cleaning issue",
-      staff: "Amit Sharma",
-      rating: 4,
-      comment: "Good work, room is clean now.",
-    },
-  ];
+  useEffect(() => {
+    api.get("/complaints").then((res) => {
+      setComplaints(
+        res.data.complaints.filter((c) => c.feedback && c.assignedStaff)
+      );
+    });
+  }, []);
+
+  const staffMap = {};
+
+  complaints.forEach((c) => {
+    const staffId = c.assignedStaff._id;
+    if (!staffMap[staffId]) {
+      staffMap[staffId] = {
+        staff: c.assignedStaff,
+        ratings: [],
+        feedbacks: [],
+      };
+    }
+    staffMap[staffId].ratings.push(c.feedback.rating);
+    staffMap[staffId].feedbacks.push(c.feedback.comment);
+  });
 
   return (
-    <>
-      <Navbar title="Staff Performance & Feedback" />
+    <div style={{ padding: "40px" }}>
+      <h2>Staff Performance</h2>
 
-      <div className="admin-page">
-        {/* ================= STAFF STATS ================= */}
-        <div className="analytics-section">
-          {staffStats.map((staff) => (
-            <div className="stat-card" key={staff.id}>
-              <h3>{staff.name}</h3>
-              <p>{staff.avgRating} ⭐</p>
-              <span className="stat-sub">
-                Complaints handled: {staff.totalComplaints}
-              </span>
-            </div>
-          ))}
+      {Object.values(staffMap).map((s) => (
+        <div
+          key={s.staff._id}
+          style={{ border: "1px solid #ccc", padding: "15px", marginBottom: "20px" }}
+        >
+          <h4>{s.staff.name}</h4>
+          <p>Email: {s.staff.email}</p>
+
+          <p>
+            Average Rating:{" "}
+            {(
+              s.ratings.reduce((a, b) => a + b, 0) / s.ratings.length
+            ).toFixed(1)}
+          </p>
+
+          <ul>
+            {s.feedbacks.map((f, i) => (
+              <li key={i}>{f}</li>
+            ))}
+          </ul>
         </div>
-
-        {/* ================= FEEDBACK TABLE ================= */}
-        <div className="complaints-table">
-          <h2>Student Feedback</h2>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Complaint</th>
-                <th>Staff</th>
-                <th>Rating</th>
-                <th>Comment</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {feedbacks.map((fb) => (
-                <tr key={fb.id}>
-                  <td>{fb.complaint}</td>
-                  <td>{fb.staff}</td>
-                  <td>{fb.rating} ⭐</td>
-                  <td>{fb.comment}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </>
+      ))}
+    </div>
   );
 };
 

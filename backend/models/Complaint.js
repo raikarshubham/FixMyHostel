@@ -1,23 +1,14 @@
 const mongoose = require("mongoose");
 
 const timelineSchema = new mongoose.Schema({
-  status: {
-    type: String,
-    enum: ["Pending", "Assigned", "In Progress", "Resolved", "Closed"],
-    required: true,
-  },
+  status: String,
   updatedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  role: {
-    type: String,
-    enum: ["student", "staff", "admin"],
-  },
-  note: {
-    type: String,
-  },
-  timestamp: {
+  role: String,
+  note: String,
+  updatedAt: {
     type: Date,
     default: Date.now,
   },
@@ -25,38 +16,40 @@ const timelineSchema = new mongoose.Schema({
 
 const complaintSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    priority: {
-      type: String,
-      enum: ["Low", "Medium", "High"],
-      default: "Medium",
-    },
+    title: String,
+    description: String,
+    category: String,
+    priority: String,
+
     status: {
       type: String,
-      enum: ["Pending", "Assigned", "In Progress", "Resolved", "Closed"],
       default: "Pending",
     },
+
     student: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
+
     assignedStaff: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+
     timeline: [timelineSchema],
+
+    /* ===============================
+       FEEDBACK (NEW)
+    ================================ */
+    feedback: {
+      rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      comment: String,
+      submittedAt: Date,
+    },
   },
   { timestamps: true }
 );

@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -21,6 +22,7 @@ import Feedback from "./pages/student/Feedback";
 import AssignComplaint from "./pages/admin/AssignComplaint";
 import AllComplaints from "./pages/admin/AllComplaints";
 import StaffPerformance from "./pages/admin/StaffPerformance";
+import CreateUser from "./pages/admin/CreateUser";
 
 /* Staff Pages */
 import UpdateComplaint from "./pages/staff/UpdateComplaint";
@@ -28,6 +30,7 @@ import ResolvedComplaints from "./pages/staff/ResolvedComplaints";
 
 const App = () => {
   return (
+    <div className="fmh-app">
     <BrowserRouter>
       <Routes>
         {/* Default */}
@@ -126,6 +129,14 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin/create-user"
+          element={
+            <ProtectedRoute role="admin">
+              <CreateUser />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Staff Routes */}
         <Route
@@ -159,6 +170,7 @@ const App = () => {
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
+    </div>
   );
 };
 

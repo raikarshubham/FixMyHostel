@@ -1,77 +1,69 @@
-/* Full page */
 .auth-page {
   min-height: 100vh;
-  background-color: #050b2c;
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: #ffffff;
-  font-family: "Segoe UI", sans-serif;
+  align-items: center;
 }
 
-/* Card */
 .auth-card {
-  background-color: #0b1245;
-  padding: 40px;
   width: 380px;
-  border-radius: 18px;
-  border: 2px solid #fbbf24;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* Headings */
-.auth-title {
+  background: linear-gradient(160deg, #0b1545, #050b2c);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 20px 45px var(--shadow-card);
   text-align: center;
-  font-size: 32px;
-  font-weight: 700;
-  color: #fbbf24;
 }
 
-.auth-subtitle {
-  text-align: center;
-  font-size: 14px;
-  color: #c7c9d3;
-  margin: 10px 0 30px;
+.auth-card h2 {
+  color: var(--gold);
+  margin-bottom: 22px;
+  font-size: 26px;
 }
 
-/* Form */
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.auth-form label {
-  font-size: 13px;
-  color: #c7c9d3;
-}
-
-/* Inputs */
-.auth-form input,
-.auth-form select {
-  padding: 12px;
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
   border-radius: 10px;
   border: none;
   outline: none;
-  background-color: #050b2c;
-  color: #ffffff;
+  background: #eef2ff;
+  font-size: 14px;
 }
 
-/* Button */
-.auth-btn {
-  margin-top: 20px;
+.auth-card button {
+  width: 100%;
   padding: 12px;
-  border-radius: 22px;
-  background-color: #fbbf24;
-  color: #050b2c;
-  border: none;
-  font-size: 15px;
+  border-radius: 30px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
-.auth-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(251, 191, 36, 0.4);
+.auth-card button:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+.auth-link {
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--gold-light);
+  cursor: pointer;
+}
+
+.auth-error {
+  color: #ff6b6b;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.auth-success {
+  color: #4cd964;
+  margin-bottom: 10px;
+  font-size: 14px;
 }
