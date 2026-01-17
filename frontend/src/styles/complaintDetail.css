@@ -1,0 +1,84 @@
+.complaint-detail-page {
+  min-height: calc(100vh - 140px);
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+  padding: 60px 20px;
+}
+
+.complaint-detail-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(5, 11, 44, 0.9);
+  border: 1px solid var(--border-gold);
+  border-radius: 22px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.complaint-detail-card h1 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.complaint-meta {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+  color: var(--gold-light);
+  font-size: 14px;
+}
+
+.complaint-description {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 35px;
+}
+
+.timeline-heading {
+  margin-bottom: 25px;
+  color: var(--text-primary);
+}
+
+/* Timeline */
+
+.timeline {
+  position: relative;
+  padding-left: 30px;
+  border-left: 2px solid var(--border-gold);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -11px;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+.timeline-content h3 {
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.timeline-content p {
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.timeline-role {
+  font-size: 13px;
+  color: var(--gold-light);
+}
+
+.loading-text {
+  padding: 80px;
+  text-align: center;
+  color: var(--text-secondary);
+}

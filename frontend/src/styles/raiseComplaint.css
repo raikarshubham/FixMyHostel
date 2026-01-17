@@ -1,0 +1,91 @@
+.raise-page {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+}
+
+.raise-card {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(5, 11, 44, 0.88);
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
+}
+
+.raise-card h1 {
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.raise-subtext {
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.raise-card label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.raise-card input,
+.raise-card textarea,
+.raise-card select {
+  width: 100%;
+  background: #eaf0ff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.raise-card textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.raise-card button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.raise-card button:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+.raise-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success-text {
+  color: #4cff8f;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.error-text {
+  color: #ff6b6b;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+

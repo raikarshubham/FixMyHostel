@@ -1,0 +1,91 @@
+.update-page {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+}
+
+.update-card {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(5, 11, 44, 0.85);
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.update-card h1 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.complaint-description {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.complaint-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: var(--gold-light);
+}
+
+.update-card label {
+  display: block;
+  margin-bottom: 6px;
+  margin-top: 20px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.update-card select,
+.update-card textarea {
+  width: 100%;
+  background: #eaf0ff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.update-card textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.update-card button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.update-card button:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+.update-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loading-text {
+  padding: 80px;
+  text-align: center;
+  color: var(--text-secondary);
+}

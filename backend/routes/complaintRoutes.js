@@ -9,11 +9,15 @@ const {
   assignComplaint,
   updateComplaintStatus,
   submitFeedback,
+  getAssignedComplaints,
+  getResolvedComplaints,
 } = require("../controllers/complaintController");
 
 const { protect, authorize } = require("../middleware/authMiddleware");
 
-/* Student */
+/* ===============================
+   Student
+================================ */
 router.post("/", protect, authorize("student"), createComplaint);
 router.get("/my", protect, authorize("student"), getMyComplaints);
 router.post(
@@ -23,28 +27,47 @@ router.post(
   submitFeedback
 );
 
-/* Staff */
+/* ===============================
+   Staff
+================================ */
 router.get(
   "/assigned",
   protect,
   authorize("staff"),
-  async (req, res) => {
-    const complaints = await require("../models/Complaint")
-      .find({ assignedStaff: req.user.id })
-      .sort({ createdAt: -1 });
-
-    res.json({ success: true, complaints });
-  }
+  getAssignedComplaints
 );
 
-/* Shared */
-router.get("/:id", protect, authorize("student", "staff", "admin"), getComplaintById);
+router.get(
+  "/resolved",
+  protect,
+  authorize("staff"),
+  getResolvedComplaints
+);
 
-/* Admin */
+/* ===============================
+   Shared
+================================ */
+router.get(
+  "/:id",
+  protect,
+  authorize("student", "staff", "admin"),
+  getComplaintById
+);
+
+/* ===============================
+   Admin
+================================ */
 router.get("/", protect, authorize("admin"), getAllComplaints);
 router.put("/:id/assign", protect, authorize("admin"), assignComplaint);
 
-/* Staff + Admin */
-router.put("/:id/status", protect, authorize("staff", "admin"), updateComplaintStatus);
+/* ===============================
+   Staff + Admin
+================================ */
+router.put(
+  "/:id/status",
+  protect,
+  authorize("staff", "admin"),
+  updateComplaintStatus
+);
 
 module.exports = router;

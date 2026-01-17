@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { createComplaint } from "../../api/complaintApi";
 
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+
+import "../../styles/theme.css";
+import "../../styles/layout.css";
+import "../../styles/raiseComplaint.css";
+
 const RaiseComplaint = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -26,7 +33,7 @@ const RaiseComplaint = () => {
 
     try {
       await createComplaint(formData);
-      setMessage("✅ Complaint raised successfully");
+      setMessage("success");
 
       setFormData({
         title: "",
@@ -35,62 +42,80 @@ const RaiseComplaint = () => {
         priority: "Medium",
       });
     } catch (error) {
-      setMessage(
-        error.response?.data?.message || "❌ Failed to raise complaint"
-      );
+      setMessage("error");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="form-container">
-      <h2>Raise a Complaint</h2>
+    <>
+      <Navbar />
 
-      {message && <p>{message}</p>}
+      <div className="raise-page">
+        <div className="raise-card">
+          <h1>Raise a Complaint</h1>
+          <p className="raise-subtext">
+            Report any hostel-related issue and track its resolution
+          </p>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Complaint Title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
+          {message === "success" && (
+            <p className="success-text">Complaint raised successfully</p>
+          )}
+          {message === "error" && (
+            <p className="error-text">Failed to raise complaint</p>
+          )}
 
-        <textarea
-          name="description"
-          placeholder="Describe your issue"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
+          <form onSubmit={handleSubmit}>
+            <label>Complaint Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="e.g. Water leakage in bathroom"
+              value={formData.title}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          type="text"
-          name="category"
-          placeholder="Category (Water, Electricity, etc.)"
-          value={formData.category}
-          onChange={handleChange}
-          required
-        />
+            <label>Description</label>
+            <textarea
+              name="description"
+              placeholder="Describe the issue in detail"
+              value={formData.description}
+              onChange={handleChange}
+              required
+            />
 
-        <select
-          name="priority"
-          value={formData.priority}
-          onChange={handleChange}
-        >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
+            <label>Category</label>
+            <input
+              type="text"
+              name="category"
+              placeholder="Water, Electricity, Cleanliness..."
+              value={formData.category}
+              onChange={handleChange}
+              required
+            />
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Submitting..." : "Submit Complaint"}
-        </button>
-      </form>
-    </div>
+            <label>Priority</label>
+            <select
+              name="priority"
+              value={formData.priority}
+              onChange={handleChange}
+            >
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+
+            <button type="submit" disabled={loading}>
+              {loading ? "Submitting..." : "Submit Complaint"}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <Footer />
+    </>
   );
 };
 

@@ -1,0 +1,92 @@
+/* NAVBAR */
+.navbar {
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+  border-bottom: 1px solid var(--border-gold);
+}
+
+.navbar-left {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  cursor: pointer;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar-profile {
+  text-align: right;
+}
+
+.navbar-name {
+  display: block;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.navbar-role {
+  font-size: 12px;
+  color: var(--gold-light);
+  text-transform: capitalize;
+}
+
+.navbar-logout {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.navbar-logout:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 60px;
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* ===============================
+   AUTH NAVBAR (LOGIN / REGISTER)
+================================ */
+.auth-navbar {
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+  border-bottom: 1px solid var(--border-gold);
+}
+
+.auth-navbar-left {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  cursor: pointer;
+}
+
+.auth-navbar-right {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--text-secondary);
+  max-width: 620px;
+  text-align: right;
+}

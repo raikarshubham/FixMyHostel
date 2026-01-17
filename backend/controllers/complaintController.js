@@ -1,5 +1,4 @@
 const Complaint = require("../models/Complaint");
-const User = require("../models/User");
 
 /* ===============================
    Student: Create Complaint
@@ -43,7 +42,8 @@ exports.getMyComplaints = async (req, res) => {
 ================================ */
 exports.getComplaintById = async (req, res) => {
   const complaint = await Complaint.findById(req.params.id)
-    .populate("assignedStaff", "name email");
+    .populate("assignedStaff", "name email")
+    .populate("student", "name email");
 
   if (!complaint) {
     return res.status(404).json({ message: "Complaint not found" });
@@ -51,7 +51,7 @@ exports.getComplaintById = async (req, res) => {
 
   if (
     req.user.role === "student" &&
-    complaint.student.toString() !== req.user.id
+    complaint.student._id.toString() !== req.user.id
   ) {
     return res.status(403).json({ message: "Not authorized" });
   }
@@ -129,7 +129,34 @@ exports.updateComplaintStatus = async (req, res) => {
 };
 
 /* ===============================
-   Student: Submit Feedback (NEW)
+   Staff: Assigned Complaints
+================================ */
+exports.getAssignedComplaints = async (req, res) => {
+  const complaints = await Complaint.find({
+    assignedStaff: req.user.id,
+  })
+    .populate("student", "name email")
+    .sort({ createdAt: -1 });
+
+  res.json({ success: true, complaints });
+};
+
+/* ===============================
+   Staff: Resolved Complaints
+================================ */
+exports.getResolvedComplaints = async (req, res) => {
+  const complaints = await Complaint.find({
+    assignedStaff: req.user.id,
+    status: "Resolved",
+  })
+    .populate("student", "name email")
+    .sort({ updatedAt: -1 });
+
+  res.json({ success: true, complaints });
+};
+
+/* ===============================
+   Student: Submit Feedback
 ================================ */
 exports.submitFeedback = async (req, res) => {
   const { rating, comment } = req.body;

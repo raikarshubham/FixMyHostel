@@ -1,30 +1,50 @@
 import { useNavigate } from "react-router-dom";
+import "../../styles/theme.css";
+import "../../styles/dashboard.css";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import "../../styles/layout.css";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h2>Admin Dashboard</h2>
+    <>
+    <Navbar/>
+    <div className="dashboard-page">
+      <h1>Admin Dashboard</h1>
+      <p className="dashboard-subtext">
+        Manage complaints, staff, and performance
+      </p>
 
-      <div style={{ marginTop: "20px" }}>
-        <button onClick={() => navigate("/admin/complaints")}>
-          View All Complaints
-        </button>
+      <div className="dashboard-grid">
+        <div
+          className="dashboard-card"
+          onClick={() => navigate("/admin/complaints")}
+        >
+          <h3>View All Complaints</h3>
+          <p>View, assign, and manage all complaints</p>
+        </div>
 
-        <br /><br />
+        <div
+          className="dashboard-card"
+          onClick={() => navigate("/admin/create-user")}
+        >
+          <h3>Create Staff / Admin</h3>
+          <p>Add new staff members or administrators</p>
+        </div>
 
-        <button onClick={() => navigate("/admin/create-user")}>
-          Create Staff / Admin
-        </button>
-
-        <br /><br />
-
-        <button onClick={() => navigate("/admin/staff-performance")}>
-          Staff Performance
-        </button>
+        <div
+          className="dashboard-card"
+          onClick={() => navigate("/admin/staff-performance")}
+        >
+          <h3>Staff Performance</h3>
+          <p>View staff ratings and feedback</p>
+        </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

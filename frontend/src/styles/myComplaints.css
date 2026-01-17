@@ -1,0 +1,80 @@
+.mycomplaints-page {
+  min-height: calc(100vh - 140px);
+  padding: 60px 40px;
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+}
+
+.mycomplaints-page h1 {
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.mycomplaints-subtext {
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.empty-text {
+  color: var(--text-secondary);
+  margin-top: 40px;
+}
+
+.mycomplaints-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.mycomplaint-card {
+  background: rgba(5, 11, 44, 0.88);
+  border: 1px solid var(--border-gold);
+  border-radius: 18px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mycomplaint-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+
+.mycomplaint-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.mycomplaint-card .category {
+  color: var(--gold-light);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.status {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* STATUS COLORS */
+.status.pending {
+  background: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+}
+
+.status.assigned {
+  background: rgba(0, 123, 255, 0.15);
+  color: #4da3ff;
+}
+
+.status.in\ progress {
+  background: rgba(255, 159, 67, 0.15);
+  color: #ff9f43;
+}
+
+.status.resolved {
+  background: rgba(40, 199, 111, 0.18);
+  color: #28c76f;
+}

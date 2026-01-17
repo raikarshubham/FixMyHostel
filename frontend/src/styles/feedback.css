@@ -1,0 +1,87 @@
+.feedback-page {
+  min-height: calc(100vh - 140px);
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+  padding: 60px 20px;
+}
+
+.feedback-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.feedback-page h1 {
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.feedback-subtext {
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.feedback-card {
+  background: rgba(5, 11, 44, 0.9);
+  border: 1px solid var(--border-gold);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+.feedback-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 18px;
+}
+
+.feedback-card label {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.feedback-card select,
+.feedback-card textarea {
+  width: 100%;
+  background: #eaf0ff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.feedback-card textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.feedback-card button {
+  margin-top: 22px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.feedback-card button:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+.empty-text {
+  color: var(--text-secondary);
+  margin-top: 40px;
+}

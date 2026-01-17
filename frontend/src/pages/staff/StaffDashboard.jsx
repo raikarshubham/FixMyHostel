@@ -2,46 +2,82 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+
+import "../../styles/theme.css";
+import "../../styles/layout.css";
+import "../../styles/dashboard.css";
+
 const StaffDashboard = () => {
-  const [complaints, setComplaints] = useState([]);
+  const [assignedComplaints, setAssignedComplaints] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    api
-      .get("/complaints/assigned")
+    api.get("/complaints/assigned")
       .then((res) => {
-        setComplaints(res.data.complaints);
+        const active = (res.data.complaints || []).filter((c) =>
+          ["Pending", "Assigned", "In Progress"].includes(c.status)
+        );
+        setAssignedComplaints(active);
       })
-      .catch((err) => {
-        console.error("Failed to load assigned complaints", err);
-      });
+      .catch(() =>
+        console.error("Failed to load assigned complaints")
+      );
   }, []);
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h2>Assigned Complaints</h2>
+    <>
+      <Navbar />
 
-      {complaints.length === 0 && (
-        <p>No complaints assigned to you.</p>
-      )}
+      <div className="dashboard-page">
+        <h1>Staff Dashboard</h1>
+        <p className="dashboard-subtext">
+          Manage complaints assigned to you
+        </p>
 
-      {complaints.map((c) => (
-        <div
-          key={c._id}
-          onClick={() => navigate(`/staff/update/${c._id}`)}
-          style={{
-            border: "1px solid #ccc",
-            padding: "15px",
-            marginBottom: "12px",
-            cursor: "pointer",
-          }}
-        >
-          <h4>{c.title}</h4>
-          <p>Category: {c.category}</p>
-          <strong>Status: {c.status}</strong>
+        {/* SUMMARY CARDS */}
+        <div className="dashboard-grid">
+          <div className="dashboard-card">
+            <h3>Active Complaints</h3>
+            <p>{assignedComplaints.length}</p>
+          </div>
+
+          <div
+            className="dashboard-card"
+            onClick={() => navigate("/staff/resolved")}
+          >
+            <h3>Resolved Complaints</h3>
+            <p>View completed work</p>
+          </div>
         </div>
-      ))}
-    </div>
+
+        {/* ACTIVE COMPLAINT LIST */}
+        <h2 style={{ marginTop: "40px" }}>Assigned Complaints</h2>
+
+        {assignedComplaints.length === 0 && (
+          <p className="dashboard-subtext">
+            No active complaints assigned to you.
+          </p>
+        )}
+
+        <div className="dashboard-grid">
+          {assignedComplaints.map((c) => (
+            <div
+              key={c._id}
+              className="dashboard-card"
+              onClick={() => navigate(`/staff/update/${c._id}`)}
+            >
+              <h4>{c.title}</h4>
+              <p>Category: {c.category}</p>
+              <strong>Status: {c.status}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Footer />
+    </>
   );
 };
 

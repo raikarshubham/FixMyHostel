@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import AuthNavbar from "../../components/AuthNavbar";
 import "../../styles/theme.css";
 import "../../styles/auth.css";
+import "../../styles/layout.css";
+import Footer from "../../components/Footer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,7 +39,6 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(user));
 
       const role = user.role.toLowerCase();
-
       if (role === "student") navigate("/student/dashboard");
       else if (role === "staff") navigate("/staff/dashboard");
       else if (role === "admin") navigate("/admin/dashboard");
@@ -48,41 +50,46 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <h2>Login</h2>
+    <>
+      <AuthNavbar />
 
-        {error && <p className="auth-error">{error}</p>}
+      <div className="auth-page">
+        <div className="auth-card">
+          <h2>Login</h2>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+          {error && <p className="auth-error">{error}</p>}
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
 
-        <p className="auth-link" onClick={() => navigate("/register")}>
-          New student? Register
-        </p>
+            <button type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </form>
+
+          <p className="auth-link" onClick={() => navigate("/register")}>
+            New student? Register
+          </p>
+        </div>
       </div>
-    </div>
+      <Footer/>
+    </>
   );
 };
 

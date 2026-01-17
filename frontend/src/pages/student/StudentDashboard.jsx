@@ -1,30 +1,48 @@
 import { useNavigate } from "react-router-dom";
+import "../../styles/theme.css";
+import "../../styles/dashboard.css";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import "../../styles/layout.css";
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ padding: "40px" }}>
+    <>
+    <Navbar />
+    <div className="dashboard-page">
       <h1>Student Dashboard</h1>
-      <p>Welcome to FixMyHostel</p>
+      <p className="dashboard-subtext">Welcome to FixMyHostel</p>
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-        <div className="dashboard-card" onClick={() => navigate("/student/raise-complaint")}>
+      <div className="dashboard-grid">
+        <div
+          className="dashboard-card"
+          onClick={() => navigate("/student/raise-complaint")}
+        >
           <h3>Raise Complaint</h3>
-          <p>Report hostel issues</p>
+          <p>Report hostel-related issues</p>
         </div>
 
-        <div className="dashboard-card" onClick={() => navigate("/student/complaints")}>
+        <div
+          className="dashboard-card"
+          onClick={() => navigate("/student/complaints")}
+        >
           <h3>My Complaints</h3>
-          <p>Track your complaints</p>
+          <p>Track your submitted complaints</p>
         </div>
 
-        <div className="dashboard-card" onClick={() => navigate("/student/feedback")}>
+        <div
+          className="dashboard-card"
+          onClick={() => navigate("/student/feedback")}
+        >
           <h3>Feedback</h3>
-          <p>Give feedback on resolved issues</p>
+          <p>Rate resolved complaints</p>
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

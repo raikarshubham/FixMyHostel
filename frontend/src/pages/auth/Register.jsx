@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import AuthNavbar from "../../components/AuthNavbar";
 import "../../styles/theme.css";
 import "../../styles/auth.css";
+import "../../styles/layout.css";
+import Footer from "../../components/Footer";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -44,51 +47,56 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <h2>Student Registration</h2>
+    <>
+      <AuthNavbar />
 
-        {error && <p className="auth-error">{error}</p>}
-        {success && <p className="auth-success">{success}</p>}
+      <div className="auth-page">
+        <div className="auth-card">
+          <h2>Student Registration</h2>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+          {error && <p className="auth-error">{error}</p>}
+          {success && <p className="auth-success">{success}</p>}
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Registering..." : "Register"}
-          </button>
-        </form>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
 
-        <p className="auth-link" onClick={() => navigate("/login")}>
-          Already have an account? Login
-        </p>
+            <button type="submit" disabled={loading}>
+              {loading ? "Registering..." : "Register"}
+            </button>
+          </form>
+
+          <p className="auth-link" onClick={() => navigate("/login")}>
+            Already have an account? Login
+          </p>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

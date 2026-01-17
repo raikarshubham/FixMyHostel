@@ -1,0 +1,68 @@
+/* Page wrapper */
+.dashboard-page {
+  padding: 50px;
+}
+
+/* Headings */
+.dashboard-page h1,
+.dashboard-page h2 {
+  margin-bottom: 8px;
+}
+
+.dashboard-subtext {
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+/* Grid for cards */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* Reusable card */
+.dashboard-card {
+  background: linear-gradient(160deg, #0b1545, #050b2c);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  box-shadow: 0 14px 35px var(--shadow-card);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px var(--shadow-card);
+}
+
+.dashboard-card h3,
+.dashboard-card h4 {
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.dashboard-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Admin buttons */
+.admin-actions button {
+  width: 260px;
+  padding: 12px;
+  border-radius: 30px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-bottom: 16px;
+}
+
+.admin-actions button:hover {
+  background: var(--gold);
+  color: #000;
+}
