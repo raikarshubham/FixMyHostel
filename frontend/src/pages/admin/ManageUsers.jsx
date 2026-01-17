@@ -14,7 +14,7 @@ const ManageUsers = () => {
 
   const loadUsers = () => {
     api
-      .get("/users") // ✅ FIX: fetch ALL users
+      .get("/users")
       .then((res) => setUsers(res.data.users))
       .catch(() => setError("Failed to load users"));
   };
