@@ -1,0 +1,78 @@
+.manage-page {
+  min-height: calc(100vh - 140px);
+  padding: 80px 40px;
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+}
+
+.manage-page h1 {
+  color: var(--text-primary);
+  margin-bottom: 30px;
+}
+
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.user-card {
+  background: rgba(5, 11, 44, 0.95);
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.user-card h3 {
+  color: var(--text-primary);
+}
+
+.user-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.role-badge {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--gold);
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.danger-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: 2px solid #ff6b6b;
+  background: transparent;
+  color: #ff6b6b;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.danger-btn:hover {
+  background: #ff6b6b;
+  color: #000;
+}
+
+.error-text {
+  color: #ff6b6b;
+  margin-bottom: 14px;
+}
+.role-student {
+  background: #60a5fa; /* blue */
+}
+
+.role-staff {
+  background: #fbbf24; /* gold */
+}
+
+.role-admin {
+  background: #f87171; /* red */
+}

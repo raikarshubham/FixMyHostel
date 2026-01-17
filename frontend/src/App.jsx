@@ -23,6 +23,7 @@ import AssignComplaint from "./pages/admin/AssignComplaint";
 import AllComplaints from "./pages/admin/AllComplaints";
 import StaffPerformance from "./pages/admin/StaffPerformance";
 import CreateUser from "./pages/admin/CreateUser";
+import ManageUsers from "./pages/admin/ManageUsers";
 
 /* Staff Pages */
 import UpdateComplaint from "./pages/staff/UpdateComplaint";
@@ -165,6 +166,16 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+
+<Route
+  path="/admin/manage-users"
+  element={
+    <ProtectedRoute role="admin">
+      <ManageUsers />
+    </ProtectedRoute>
+  }
+/>
+
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/login" />} />
