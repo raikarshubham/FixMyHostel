@@ -1,85 +1,92 @@
-📌 FixMyHostel
-Hostel Complaint & Maintenance Management System
+🏠 FixMyHostel – Hostel Complaint Management System
 
-FixMyHostel is a full-stack web application designed to digitize and streamline the hostel complaint and maintenance process.
-It enables students, hostel admins, and maintenance staff to efficiently manage complaints with transparency, accountability, and analytics.
+FixMyHostel is a full-stack MERN application designed to digitize and streamline hostel complaint management.
+It provides a role-based system for students, staff, and administrators to efficiently raise, track, assign, resolve, and review complaints.
 
-🚀 Features Overview
-👨‍🎓 Student Module
+🚀 Live Overview
 
-Raise hostel complaints with:
+Roles Supported:
 
-Hostel, block, room number
+👨‍🎓 Student
 
-Category (Water, Electricity, Wi-Fi, Cleanliness, Other)
+🧑‍🔧 Staff
 
-Priority (Low / Medium / High)
+🛡 Admin
 
-Description & optional image
+Core Idea:
 
-View all submitted complaints
+Replace manual complaint registers with a transparent, trackable, role-based digital system.
 
-Track complaint lifecycle via status timeline
+✨ Features:
 
-View detailed complaint history
+👨‍🎓 Student:
 
-Submit feedback after resolution
+Register & login securely
 
-🧑‍💼 Admin Module
+Raise hostel complaints (water, electricity, cleanliness, etc.)
 
-View all complaints across hostels
+Track complaint status with timeline
 
-Filter complaints by:
+View complaint history
 
-Category
+Submit feedback & rating after resolution
 
-Priority
+🧑‍🔧 Staff:
 
-Status
-
-Date
-
-Assign complaints to maintenance staff
-
-Track complaint progress
-
-View staff performance & analytics
-
-🧑‍🔧 Maintenance Staff Module
+Login securely
 
 View assigned complaints
 
-Update complaint status (In Progress → Resolved)
+Update complaint status (In Progress / Resolved)
 
-Add resolution notes
+Add work notes during resolution
 
-Upload after-repair images
+View resolved complaints
 
-📊 Dashboards & Workflow
+🛡 Admin:
 
-Role-based dashboards (Student / Admin / Staff)
+Secure admin login
 
-Complaint lifecycle tracking:
+View all complaints
 
-Raised → Assigned → In Progress → Resolved → Closed
+Assign complaints to staff
 
+Create staff & admin accounts
 
-Timeline with timestamps & updater details
+Manage all users (students, staff, admins)
 
-Clean, consistent dark-theme UI across the system
+Delete users with safety checks
 
-🛠️ Tech Stack
-Frontend
+View staff performance based on feedback & ratings
 
-React (Vite)
+🧠 Key Highlights:
 
-React Router DOM
+Role-based access control (RBAC)
 
-Context API (Authentication & roles)
+JWT authentication
 
-CSS (custom dark theme UI)
+Complaint lifecycle tracking
 
-Backend (Planned)
+Timeline-based status updates
+
+Feedback-driven staff performance
+
+Clean, responsive UI with consistent theme
+
+Secure admin-only operations
+
+🛠 Tech Stack:
+Frontend:
+
+React.js (Vite)
+
+React Router
+
+Axios
+
+CSS (custom dark theme)
+
+Backend:
 
 Node.js
 
@@ -91,74 +98,40 @@ Mongoose
 
 JWT Authentication
 
-🎨 UI/UX Highlights
+🔐 Authentication & Authorization:
 
-Dark navy theme with yellow accent highlights
+JWT-based authentication
 
-Card-based dashboards for easy navigation
+Protected routes for each role
 
-Minimal, professional, and thesis-ready design
+Admin-only APIs secured using middleware
 
-Consistent layout across all roles
+Users cannot access unauthorized dashboards
 
-🔐 Authentication & Authorization
+🔁 Complaint Lifecycle:
 
-Role-based access control:
+Student raises complaint
 
-Student
+Admin assigns complaint to staff
 
-Admin
+Staff updates status (In Progress → Resolved)
 
-Maintenance Staff
+Student submits feedback
 
-Protected routes using custom ProtectedRoute
+Admin reviews staff performance
 
-Authentication handled via React Context
+🧪 API Overview (Sample):
+Method	Endpoint	Description
+POST	/api/auth/login	Login
+POST	/api/auth/register	Student registration
+POST	/api/complaints	Raise complaint
+GET	/api/complaints/my	Student complaints
+PUT	/api/complaints/:id/assign	Assign staff
+PUT	/api/complaints/:id/status	Update status
+POST	/api/complaints/:id/feedback	Submit feedback
+GET	/api/users	Admin: all users
+DELETE	/api/users/:id	Admin: delete user
 
-Backend JWT integration planned
-
-📈 Why This Project Is Strong (Interview Point)
-
-Solves a real-world college problem
-
-Implements multi-role architecture
-
-Shows workflow design & lifecycle tracking
-
-Clean UI + scalable structure
-
-Backend-ready frontend architecture
-
-Uses modern tooling (React + Vite)
-
-🧪 Current Status
-
-✅ Frontend UI completed (Student, Admin, Staff)
-
-✅ Navigation & protected routing
-
-✅ Complaint lifecycle & detail views
-
-⏳ Backend development in progress
-
-🔮 Future Enhancements
-
-Backend API integration
-
-Email & in-app notifications
-
-Complaint analytics dashboard
-
-Admin performance reports
-
-File/image uploads via cloud storage
-
-Deployment (Vercel / Render)
-
-👤 Author
-
+👨‍💻 Author:
 Shubham Raikar
-Computer Science Engineering Student
-
-📌 GitHub: https://github.com/raikarshubham
-
+Computer Science & Engineering
