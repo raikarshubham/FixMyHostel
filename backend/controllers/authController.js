@@ -2,9 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-/* ===============================
-   REGISTER (STUDENT ONLY)
-================================ */
+//REGISTER (STUDENT ONLY)
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -26,7 +24,7 @@ exports.register = async (req, res) => {
       name,
       email,
       password,
-      role: "student", // 🔒 FORCE STUDENT
+      role: "student",
     });
 
     res.status(201).json({
@@ -46,9 +44,7 @@ exports.register = async (req, res) => {
   }
 };
 
-/* ===============================
-   LOGIN
-================================ */
+//LOGIN
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;

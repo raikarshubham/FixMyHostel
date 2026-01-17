@@ -1,0 +1,87 @@
+.assign-page {
+  min-height: calc(100vh - 140px);
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 20px;
+}
+
+.assign-card {
+  width: 100%;
+  max-width: 640px;
+  background: rgba(5, 11, 44, 0.95);
+  border: 1px solid var(--border-gold);
+  border-radius: 22px;
+  padding: 40px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.6);
+}
+
+.assign-card h1 {
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.complaint-info {
+  margin-bottom: 30px;
+}
+
+.complaint-info h3 {
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.complaint-info p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.form-group {
+  margin-bottom: 28px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.form-group select {
+  width: 100%;
+  background: #eaf0ff;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-btn:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+.error-text {
+  color: #ff6b6b;
+  margin-bottom: 14px;
+}
+
+.loading-text {
+  padding: 80px;
+  text-align: center;
+  color: var(--text-secondary);
+}

@@ -1,0 +1,72 @@
+.staff-performance-page {
+  min-height: calc(100vh - 140px);
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+  padding: 60px 20px;
+}
+
+.staff-performance-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.staff-performance-page h1 {
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.subtext {
+  color: var(--text-secondary);
+  margin-bottom: 35px;
+}
+
+.staff-performance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.staff-card {
+  background: rgba(5, 11, 44, 0.9);
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+
+.staff-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.staff-email {
+  color: var(--gold-light);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.rating-box {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.feedback-list {
+  margin-top: 12px;
+}
+
+.feedback-item {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.empty-text {
+  color: var(--text-secondary);
+  margin-top: 40px;
+}

@@ -2,39 +2,57 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+
+import "../../styles/theme.css";
+import "../../styles/layout.css";
+import "../../styles/allComplaints.css";
+
 const AllComplaints = () => {
   const [complaints, setComplaints] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     api.get("/complaints")
-      .then((res) => setComplaints(res.data.complaints))
+      .then((res) => setComplaints(res.data.complaints || []))
       .catch(console.error);
   }, []);
 
   return (
-    <div style={{ padding: 40 }}>
-      <h2>All Complaints</h2>
+    <>
+      <Navbar />
 
-      {!complaints.length && <p>No complaints found.</p>}
+      <div className="all-complaints-page">
+        <div className="all-complaints-container">
+          <h1>All Complaints</h1>
 
-      {complaints.map((c) => (
-        <div
-          key={c._id}
-          onClick={() => navigate(`/admin/assign/${c._id}`)}
-          style={{
-            border: "1px solid #ccc",
-            padding: 16,
-            marginBottom: 12,
-            cursor: "pointer",
-          }}
-        >
-          <h4>{c.title}</h4>
-          <p>Student: {c.student?.name}</p>
-          <strong>Status: {c.status}</strong>
+          {!complaints.length && (
+            <p className="empty-text">No complaints found.</p>
+          )}
+
+          <div className="complaints-grid">
+            {complaints.map((c) => (
+              <div
+                key={c._id}
+                className="complaint-card"
+                onClick={() => navigate(`/admin/assign/${c._id}`)}
+              >
+                <h3>{c.title}</h3>
+                <p className="student-name">
+                  Student: {c.student?.name || "N/A"}
+                </p>
+                <span className="status-badge">
+                  {c.status}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
+      </div>
+
+      <Footer />
+    </>
   );
 };
 

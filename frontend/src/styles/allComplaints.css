@@ -1,0 +1,59 @@
+.all-complaints-page {
+  min-height: calc(100vh - 140px);
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+  padding: 60px 20px;
+}
+
+.all-complaints-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.all-complaints-page h1 {
+  color: var(--text-primary);
+  margin-bottom: 30px;
+}
+
+.complaints-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 26px;
+}
+
+.complaint-card {
+  background: rgba(5, 11, 44, 0.9);
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 24px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.complaint-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+.complaint-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.student-name {
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.empty-text {
+  color: var(--text-secondary);
+}

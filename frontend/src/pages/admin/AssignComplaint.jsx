@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+
+import "../../styles/theme.css";
+import "../../styles/layout.css";
+import "../../styles/assignComplaint.css";
+
 const AssignComplaint = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -12,15 +19,13 @@ const AssignComplaint = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Fetch complaint
     api.get(`/complaints/${id}`)
       .then((res) => setComplaint(res.data.complaint))
       .catch(() => setError("Failed to load complaint"));
 
-    // Fetch staff list (🔥 FIX)
     api.get("/users/staff")
       .then((res) => setStaffList(res.data.users))
-      .catch(() => setError("Failed to load staff"));
+      .catch(() => setError("Failed to load staff list"));
   }, [id]);
 
   const assignComplaint = async () => {
@@ -37,33 +42,48 @@ const AssignComplaint = () => {
     }
   };
 
-  if (!complaint) return <p>Loading...</p>;
+  if (!complaint) {
+    return <p className="loading-text">Loading complaint...</p>;
+  }
 
   return (
-    <div style={{ padding: "40px", maxWidth: "600px", margin: "0 auto" }}>
-      <h2>Assign Complaint</h2>
+    <>
+      <Navbar />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      <div className="assign-page">
+        <div className="assign-card">
+          <h1>Assign Complaint</h1>
 
-      <h4>{complaint.title}</h4>
-      <p>{complaint.description}</p>
+          {error && <p className="error-text">{error}</p>}
 
-      <select
-        value={staffId}
-        onChange={(e) => setStaffId(e.target.value)}
-      >
-        <option value="">Select Staff</option>
-        {staffList.map((staff) => (
-          <option key={staff._id} value={staff._id}>
-            {staff.name} ({staff.email})
-          </option>
-        ))}
-      </select>
+          <div className="complaint-info">
+            <h3>{complaint.title}</h3>
+            <p>{complaint.description}</p>
+          </div>
 
-      <br /><br />
+          <div className="form-group">
+            <label>Select Staff</label>
+            <select
+              value={staffId}
+              onChange={(e) => setStaffId(e.target.value)}
+            >
+              <option value="">Select staff member</option>
+              {staffList.map((staff) => (
+                <option key={staff._id} value={staff._id}>
+                  {staff.name} ({staff.email})
+                </option>
+              ))}
+            </select>
+          </div>
 
-      <button onClick={assignComplaint}>Assign</button>
-    </div>
+          <button className="primary-btn" onClick={assignComplaint}>
+            Assign Complaint
+          </button>
+        </div>
+      </div>
+
+      <Footer />
+    </>
   );
 };
 

@@ -1,6 +1,13 @@
 import { useState } from "react";
 import api from "../../api/axios";
 
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+
+import "../../styles/theme.css";
+import "../../styles/layout.css";
+import "../../styles/createUser.css";
+
 const CreateUser = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -45,62 +52,69 @@ const CreateUser = () => {
   };
 
   return (
-    <div style={{ padding: "40px", maxWidth: "500px", margin: "0 auto" }}>
-      <h2>Create Staff / Admin</h2>
+    <>
+      <Navbar />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      <div className="create-user-page">
+        <div className="create-user-card">
+          <h1>Create Staff / Admin</h1>
+          <p className="subtext">
+            Add new staff members or administrators
+          </p>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+          {error && <p className="error-text">{error}</p>}
+          {success && <p className="success-text">{success}</p>}
 
-        <br /><br />
+          <form onSubmit={handleSubmit}>
+            <label>Full Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter full name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+            <label>Email Address</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
-        <br /><br />
+            <label>Temporary Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Set temporary password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Temporary Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+            <label>User Role</label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="staff">Staff</option>
+              <option value="admin">Admin</option>
+            </select>
 
-        <br /><br />
+            <button type="submit" disabled={loading}>
+              {loading ? "Creating..." : "Create User"}
+            </button>
+          </form>
+        </div>
+      </div>
 
-        <select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-        >
-          <option value="staff">Staff</option>
-          <option value="admin">Admin</option>
-        </select>
-
-        <br /><br />
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create User"}
-        </button>
-      </form>
-    </div>
+      <Footer />
+    </>
   );
 };
 

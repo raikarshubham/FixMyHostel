@@ -1,0 +1,81 @@
+.create-user-page {
+  min-height: calc(100vh - 140px);
+  background: linear-gradient(160deg, #050b2c, #0b1545);
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.create-user-card {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(5, 11, 44, 0.9);
+  border: 1px solid var(--border-gold);
+  border-radius: 22px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.create-user-card h1 {
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.subtext {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+}
+
+.create-user-card label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.create-user-card input,
+.create-user-card select {
+  width: 100%;
+  background: #eaf0ff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.create-user-card button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create-user-card button:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+.create-user-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-text {
+  color: #ff6b6b;
+  margin-bottom: 12px;
+}
+
+.success-text {
+  color: #4ade80;
+  margin-bottom: 12px;
+}
