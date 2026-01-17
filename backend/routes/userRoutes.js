@@ -73,9 +73,7 @@ router.get(
   }
 );
 
-/* ===============================
-   Admin: Get Only Staff + Admin
-================================ */
+// Admin: Get Only Staff + Admin
 router.get(
   "/staff",
   protect,
