@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import { registerUser } from "../../api/authApi";
 
 import AuthNavbar from "../../components/AuthNavbar";
 import "../../styles/theme.css";
@@ -22,23 +23,30 @@ const Register = () => {
   const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setLoading(true);
     setError("");
     setSuccess("");
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await registerUser({
         ...formData,
         role: "student",
       });
 
       setSuccess("Registration successful! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 1500);
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
     } finally {
@@ -95,6 +103,7 @@ const Register = () => {
           </p>
         </div>
       </div>
+
       <Footer />
     </>
   );

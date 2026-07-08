@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import { loginUser } from "../../api/authApi";
 
 import AuthNavbar from "../../components/AuthNavbar";
 import "../../styles/theme.css";
@@ -20,25 +21,28 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setLoading(true);
     setError("");
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData
-      );
+      const res = await loginUser(formData);
 
       const { token, user } = res.data;
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
       const role = user.role.toLowerCase();
+
       if (role === "student") navigate("/student/dashboard");
       else if (role === "staff") navigate("/staff/dashboard");
       else if (role === "admin") navigate("/admin/dashboard");
@@ -88,7 +92,8 @@ const Login = () => {
           </p>
         </div>
       </div>
-      <Footer/>
+
+      <Footer />
     </>
   );
 };
