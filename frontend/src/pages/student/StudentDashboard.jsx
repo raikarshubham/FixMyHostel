@@ -4,6 +4,7 @@ import "../../styles/dashboard.css";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import "../../styles/layout.css";
+import ChatbotButton from "../../components/Chatbot/ChatbotButton";
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const StudentDashboard = () => {
         </div>
       </div>
     </div>
+    <ChatbotButton />
     <Footer />
     </>
   );
